@@ -1,44 +1,44 @@
-document.getElementById("signupForm").addEventListener("submit", function (e) {
+// Import Firebase modules
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { auth, db } from "./firebase.js"; // Ensure firebase.js is correctly configured
+
+// Get the signup form
+const signupForm = document.getElementById("signupForm");
+
+signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Get input values
+    // Get form input values
     const name = document.getElementById("name").value.trim();
     const age = document.getElementById("age").value.trim();
     const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const confirmPassword = document.getElementById("confirm-password").value.trim();
-    const errorMessage = document.getElementById("error-message");
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    // Reset error message
-    errorMessage.textContent = "";
-
-    // Validation checks
-    if (name === "" || age === "" || email === "" || password === "" || confirmPassword === "") {
-        errorMessage.textContent = "All fields are required.";
-        return;
-    }
-
-    if (isNaN(age) || age < 18) {
-        errorMessage.textContent = "You must be at least 18 years old to sign up.";
-        return;
-    }
-
-    if (!email.includes("@") || !email.includes(".")) {
-        errorMessage.textContent = "Enter a valid email address.";
-        return;
-    }
-
-    if (password.length < 6) {
-        errorMessage.textContent = "Password must be at least 6 characters.";
-        return;
-    }
-
+    // Check if passwords match
     if (password !== confirmPassword) {
-        errorMessage.textContent = "Passwords do not match.";
+        alert("Passwords do not match!");
         return;
     }
 
-    // If everything is valid, show success alert
-    alert("Signup successful! Redirecting to login page.");
-    window.location.href = "loginpage.html"; // Redirect to login page
+    try {
+        // Create user with Firebase Authentication
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Store user data in Firestore with UID as document ID
+        await setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            name: name,
+            age: age,
+            email: email
+        });
+
+        alert("Signup successful! Redirecting...");
+        window.location.href = "index.html"; // Redirect to profile page
+    } catch (error) {
+        console.error("Signup Error:", error);
+        
+    }
 });
