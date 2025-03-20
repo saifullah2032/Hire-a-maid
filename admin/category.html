@@ -40,15 +40,17 @@
 
         <h2 style="text-align: center; margin-top: 20px;">Add Category</h2>
         <div class="form-container">
-            <form>
+            <form id="categoryForm">
                 <div class="form-group">
                     <label>Category Name</label>
-                    <input type="text" name="catname" placeholder="Enter Category Name" required>
+                    <input type="text" id="categoryName" placeholder="Enter Category Name" required>
                 </div>
                 <button class="submit-btn" type="submit">Add Category</button>
             </form>
+                        
             <a href="index.html" class="back-btn">⬅ Back to Dashboard</a>
         </div>
     </div>
+    <script type="module" src="/admin/js/category.js"></script>
 </body>
 </html>
