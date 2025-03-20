@@ -1,7 +1,7 @@
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-storage.js";
+
 // Firebase Configuration (Updated)
 const firebaseConfig = {
     apiKey: "AIzaSyDKHHmFhtcMsMj365jMcGGSU5UfoVKT3SY",
@@ -13,10 +13,10 @@ const firebaseConfig = {
     appId: "1:59794486383:web:a1de68abd7a9da4945099a",
     measurementId: "G-48143C3T7C"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const storage = getStorage(app);
 
 document.addEventListener("DOMContentLoaded", function () {
     const maidForm = document.getElementById("maidForm");
@@ -36,31 +36,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const gender = document.getElementById("gender").value;
         const contactNumber = document.getElementById("contactNumber").value.trim();
         const experience = document.getElementById("experience").value.trim();
-        const fileInput = document.getElementById("maidPicture");
-        const file = fileInput.files[0];
 
         if (!maidId) {
             alert("Maid ID is required!");
             return;
         }
 
-        let imageUrl = "";
         try {
-            if (file) {
-                // Upload to Firebase Storage
-                const storageRef = ref(storage, `maids/${maidId}/${file.name}`);
-                const snapshot = await uploadBytes(storageRef, file);
-                imageUrl = await getDownloadURL(snapshot.ref);
-            }
-
-            // Save data in Firestore
+            // Save data in Firestore (Without Image)
             const maidData = {
                 name,
                 email,
                 gender,
                 contactNumber,
                 experience,
-                imageUrl,  // Store uploaded image URL
                 timestamp: new Date()
             };
 
