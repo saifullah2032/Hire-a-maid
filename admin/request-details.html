@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Request Details</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/req-det.css">
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <img src="user-profile.png" alt="Admin User">
+            <h3>Admin User</h3>
+            <p>admin@gmail.com</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="category.html"><i class="fas fa-list"></i> Category</a></li>
+                <li><a href="maid.html"><i class="fas fa-user"></i> Maid</a></li>
+                <li class="active"><a href="hiring-request.html"><i class="fas fa-file-alt"></i> Maid Hiring Request</a></li>
+                <li><a href="pages.html"><i class="fas fa-file"></i> Pages</a></li>
+                <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>MAID HIRING MANAGEMENT SYSTEM</h1>
+        </header>
+
+        <div class="details-container">
+            <h2>Booking Request Details</h2>
+            <table>
+                <tr><th>Booking ID</th><td id="bookingId">Loading...</td></tr>
+                <tr><th>Name</th><td id="customerName">Loading...</td></tr>
+                <tr><th>Mobile</th><td id="customerMobile">Loading...</td></tr>
+                <tr><th>Email</th><td id="customerEmail">Loading...</td></tr>
+                <tr><th>Date</th><td id="bookingDate">Loading...</td></tr>
+                <tr><th>Status</th><td id="bookingStatus">Loading...</td></tr>
+                <tr><th>Assigned Maid</th><td id="assignedMaid">Loading...</td></tr>
+            </table>
+
+            <!-- Back Button -->
+            <a href="#" id="backButton" class="back-btn">⬅ Back</a>
+        </div>
+    </div>
+
+    <script>
+        // Get Booking ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        let bookingId = urlParams.get("bookingid");
+
+        // Ensure correct format
+        if (!bookingId.startsWith("BK")) {
+            bookingId = "BK" + bookingId;
+        }
+
+        // Sample Data (Updated with BK005 & BK006)
+        const requestData = {
+            "BK001": { name: "John Doe", mobile: "1234567890", email: "john@example.com", date: "2024-03-15", status: "Pending", assignedTo: "Not Assigned", backUrl: "all-requests.html" },
+            "BK002": { name: "Jane Smith", mobile: "9876543210", email: "jane@example.com", date: "2024-03-16", status: "Completed", assignedTo: "Maid 1", backUrl: "all-requests.html" },
+            "BK003": { name: "Alice Brown", mobile: "+1122334455", email: "alice@example.com", date: "2025-03-13", status: "Approved", assignedTo: "John Doe", backUrl: "assign-request.html" },
+            "BK004": { name: "Michael Lee", mobile: "+5566778899", email: "michael@example.com", date: "2025-03-12", status: "Approved", assignedTo: "Jane Smith", backUrl: "assign-request.html" },
+            "BK005": { name: "Emma Johnson", mobile: "+1199887766", email: "emma@example.com", date: "2025-03-10", status: "Cancelled", assignedTo: "Not Assigned", backUrl: "cancel-request.html" },
+            "BK006": { name: "Chris Evans", mobile: "+6655443322", email: "chris@example.com", date: "2025-03-09", status: "Cancelled", assignedTo: "Not Assigned", backUrl: "cancel-request.html" },
+	    "BK007": { name: "Olivia Brown", mobile: "+1122334455", email: "olivia@example.com", date: "2025-03-12", status: "Pending", assignedTo: "Not Assigned", backUrl: "new-request.html" },
+	      "BK008": { name: "Liam Smith", mobile: "+5566778899", email: "liam@example.com", date: "2025-03-11", status: "Pending", assignedTo: "Not Assigned", backUrl: "new-request.html" }
+        };
+
+        console.log("Booking ID:", bookingId);
+        console.log("Available Data:", requestData);
+
+        // Populate Data
+        if (requestData[bookingId]) {
+            document.getElementById("bookingId").textContent = bookingId;
+            document.getElementById("customerName").textContent = requestData[bookingId].name;
+            document.getElementById("customerMobile").textContent = requestData[bookingId].mobile;
+            document.getElementById("customerEmail").textContent = requestData[bookingId].email;
+            document.getElementById("bookingDate").textContent = requestData[bookingId].date;
+            document.getElementById("bookingStatus").textContent = requestData[bookingId].status;
+            document.getElementById("assignedMaid").textContent = requestData[bookingId].assignedTo;
+
+            // Set back button dynamically
+            document.getElementById("backButton").setAttribute("href", requestData[bookingId].backUrl);
+        } else {
+            document.querySelector(".details-container").innerHTML = "<h2>Booking Not Found</h2>";
+        }
+    </script>
+</body>
+</html>
