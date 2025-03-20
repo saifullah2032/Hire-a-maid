@@ -38,22 +38,22 @@
 
         <h2 style="text-align: center; margin-top: 20px;">Add Maid</h2>
         <div class="form-container">
-            <form>
+            <form id="maidForm">
                 <div class="form-group">
                     <label>Maid ID</label>
-                    <input type="text" name="maidid" required>
+                    <input type="text" id="maidId" name="maidid" required>
                 </div>
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" name="name" required>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" name="email" required>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label>Gender</label>
-                    <select name="gender" required>
+                    <select id="gender" name="gender" required>
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -61,20 +61,22 @@
                 </div>
                 <div class="form-group">
                     <label>Contact Number</label>
-                    <input type="text" name="contno" required maxlength="10" pattern="[0-9]+">
+                    <input type="text" id="contactNumber" name="contno" required maxlength="10" pattern="[0-9]+">
                 </div>
                 <div class="form-group">
                     <label>Experience</label>
-                    <input type="text" name="experience" required>
+                    <input type="text" id="experience" name="experience" required>
                 </div>
                 <div class="form-group">
                     <label>Maid Picture</label>
-                    <input type="file" name="pic" required>
+                    <input type="file" id="maidPicture" name="pic" required>
                 </div>
                 <button class="submit-btn" type="submit">Add Maid</button>
             </form>
+            
             <a href="index.html" class="back-btn">⬅ Back to Dashboard</a>
         </div>
     </div>
+    <script type="module" src="/admin/js/maid.js"></script>
 </body>
 </html>
