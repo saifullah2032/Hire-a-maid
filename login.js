@@ -50,7 +50,7 @@ loginForm.addEventListener("submit", async (event) => {
     if (role === "Admin") {
         if (email === "admin@example.com" && password === "admin@123") {
             // ✅ Redirect to Admin Dashboard without any alert
-            window.location.href = "admin/admin-dashboard.html";
+            window.location.href = "admin/index.html";
             return;
         } else {
             // ❌ Show error if admin credentials are wrong
